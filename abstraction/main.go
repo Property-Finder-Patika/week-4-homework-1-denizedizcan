@@ -8,35 +8,34 @@ import (
 
 var flag bool = true
 
-type temperature struct {
-	name  string
-	value float64
-}
-
 type (
 	celcius    float64
 	kelvin     float64
 	fahrenheit float64
 )
 
+//celcius converter
 func (c celcius) convert() {
 	k := c + 273
 	f := c*(9/5) + 32
 	fmt.Println(c, " Celcius is ", k, " Kelvin and ", f, " Fahremheit.")
 }
 
+//kelvin converter
 func (k kelvin) convert() {
 	c := k - 273
 	f := (9/5)*(k-273) + 32
 	fmt.Println(k, " Kelvin is ", c, " Celcius and ", f, " Fahremheit.")
 }
 
+//fahrenheit converter
 func (f fahrenheit) convert() {
 	c := (f - 32) * 5 / 9
 	k := (5*f + 2297) / 9
 	fmt.Println(f, " Fahremheit is ", c, " Celcius and ", k, " Kelvin.")
 }
 
+//converter interface
 type convert interface {
 	convert()
 }
@@ -66,6 +65,7 @@ func main() {
 				fmt.Println(err)
 				os.Exit(0)
 			}
+			//case insensitive type converter for input value
 			switch strings.ToLower(fName) {
 			case "celcius":
 				value = celcius(arg)
